@@ -1,8 +1,10 @@
 import { Logo } from './logo'
+import StudentList from './components/StudentList'
 
 export function App() {
   return (
     <>
+    <StudentList/>
       <Logo />
       <p>Hello Vite + Preact!</p>
       <p>
