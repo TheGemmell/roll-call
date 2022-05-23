@@ -1,21 +1,53 @@
 {
   "name": "roll-call",
+  "version": "0.1.0",
   "private": true,
-  "version": "0.0.0",
+  "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/material": "^5.8.0",
+    "@mui/x-data-grid": "^5.11.1",
+    "@tauri-apps/api": "^1.0.0-rc.5",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.2.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.1",
+    "@types/node": "^16.11.36",
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.4",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-scripts": "5.0.1",
+    "typescript": "^4.6.4",
+    "web-vitals": "^2.1.4"
+  },
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
+    "start": "cross-env BROWSER=none react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "tauri": "tauri"
   },
-  "dependencies": {
-    "@tauri-apps/api": "^1.0.0-rc.5",
-    "preact": "^10.5.15"
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
-    "@preact/preset-vite": "^2.1.5",
     "@tauri-apps/cli": "^1.0.0-rc.11",
-    "typescript": "^4.5.4",
-    "vite": "^2.9.9"
+    "cross-env": "^7.0.3"
   }
 }

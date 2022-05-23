@@ -1,10 +1,10 @@
 {
-  "$schema": "../node_modules/@tauri-apps/cli/schema.json",
+  "$schema": "..\\node_modules/@tauri-apps/cli\\schema.json",
   "build": {
     "beforeBuildCommand": "npm run build",
-    "beforeDevCommand": "npm run dev",
+    "beforeDevCommand": "npm run start",
     "devPath": "http://localhost:3000",
-    "distDir": "../dist"
+    "distDir": "../build"
   },
   "package": {
     "productName": "roll-call",
@@ -15,7 +15,7 @@
       "all": true,
       "fs": {
         "all": true,
-        "scope": ["$APP/data/*", "*"]
+        "scope": ["*"]
       }
     },
     "bundle": {

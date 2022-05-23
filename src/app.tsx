@@ -1,22 +1,14 @@
-import { Logo } from './logo'
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
 import StudentList from './components/StudentList'
 
-export function App() {
+function App() {
   return (
-    <>
-    <StudentList/>
-      <Logo />
-      <p>Hello Vite + Preact!</p>
-      <p>
-        <a
-          class="link"
-          href="https://preactjs.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn Preact
-        </a>
-      </p>
-    </>
-  )
+    <div className="App">
+      <StudentList />
+    </div>
+  );
 }
+
+export default App;
