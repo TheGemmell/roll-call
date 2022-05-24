@@ -1,11 +1,11 @@
 import { Button } from "@mui/material";
 import { fs, path } from "@tauri-apps/api";
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Key } from 'react'
 import { Roll, Student } from '../lib/Student'
 import StudentButton from "./StudentButton";
 
 export default function StudentGrid() {
-  const [ students, setStudents ] = useState<Roll>([])
+  const [ studs, setStudents ] = useState<Roll | any>([])
 
   path.appDir().then(data => console.log(data))
   
@@ -26,21 +26,24 @@ export default function StudentGrid() {
     studentsNeeded(roll)
   }, [])
 
-  console.log(students)
+  console.log(studs)
 
   const handleClick = () => {
-    console.log(students)
-    console.log(students.listStudents())
-    
+    let stringToWrite = studs.listStudents()
+    console.log('stringToWrite', stringToWrite)
+    fs.writeFile({
+      path: 'C:/Users/Chris/Development/roll-call/src/components/newStudents.csv',
+      contents: stringToWrite
+    },{})
   }
 
-  if (students.students) {
+  if (studs.students) {
     return (
       <div>
         <h1>Students</h1>
         <Button onClick={handleClick}>Click</Button>
-        {students.students.length}
-        {students.students.map((student, index) => <StudentButton key={index} student={student}/>)}
+        {studs.students.length}
+        {studs.students.map((student: Student, index: Key | null | undefined) => <StudentButton key={index} stud={student}/>)}
       </div>
     );
 
