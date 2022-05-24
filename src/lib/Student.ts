@@ -39,5 +39,6 @@ export class Roll {
     listStudents() {
         let strings = this.students.map(student => student.finalize(this.date))
         console.log(strings)
+        return strings
     }
 }
