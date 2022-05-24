@@ -1,5 +1,3 @@
-import React from 'react';
-import logo from './logo.svg';
 import InitialSettings from './components/InitialSettings'
 import './App.css';
 import StudentList from './components/StudentList'
