@@ -1,20 +1,42 @@
-import { Button } from "@mui/material";
+import { Button, Menu, MenuItem, Tooltip } from "@mui/material";
 import { Student } from "../lib/Student";
-import React, { useState } from 'react'
+import { MouseEvent, useState } from 'react'
 
 export default function StudentButton({ stud }: { stud: Student }) {
   const [curStudent, setStudent] = useState<Student>()
+  const [contextMenu, setContextMenu] = useState<{mouseX: number, mouseY: number} | null>(null);
+  const [open, setOpen] = useState(false);
 
   const options = ["Present", "Absent", "Absent - Excused", "Late", "Late - Excused", "Holiday"]
 
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = (e: MouseEvent<HTMLElement>) => {
+    console.log(e.currentTarget.innerText)
     stud.status = "Present"
     setStudent(stud)
   }
 
-  const handleContextClick = (e: React.MouseEvent) => {
+  const handleContextMenu = (e: MouseEvent) => {
+    e.preventDefault();
+    setContextMenu(
+      contextMenu === null
+        ? {
+            mouseX: e.clientX + 2,
+            mouseY: e.clientY - 6,
+          }
+        : // Obscure code to help some broswers not fuck-up
+          null,
+    );
 
   }
+
+  const handleClose = (e: MouseEvent<HTMLElement>) => {
+    let targ = e.currentTarget?.innerText
+    setContextMenu(null);
+    if (targ) {
+      stud.status = targ
+      setStudent(stud)
+    }
+  };
 
   function buttonStyle(student: Student) {
     let color: "primary" | "secondary" | "success" | "warning" | "error" | "info"
@@ -45,16 +67,44 @@ export default function StudentButton({ stud }: { stud: Student }) {
         variant = "text"
       break;
     }
-    
+    const handleToolClose = () => {
+      setOpen(false);
+    };
+  
+    const handleOpen = () => {
+      setOpen(true);
+    };
     
     return (
-      <Button color={color} variant={variant} onClick={handleClick} onContextMenu={handleContextClick}>
-        <p>{`${student.firstName} ${student.lastName}`}</p>
-        <p>{student.status}</p>
-      </Button>
+      <>
+        <Tooltip open={open} onClose={handleToolClose} onOpen={handleOpen} title={stud.status ? stud.status : ""}>
+        <Button className="student-button" color={color} variant={variant} onClick={handleClick} onContextMenu={handleContextMenu}>
+          <p className="button-text">{`${student.firstName} ${student.lastName}`}</p>
+        </Button>
+        </Tooltip>
+        <Menu
+        open={contextMenu !== null}
+        onClose={handleClose}
+        anchorReference="anchorPosition"
+        anchorPosition={
+          contextMenu !== null
+            ? { top: contextMenu.mouseY, left: contextMenu.mouseX }
+            : undefined
+        }>
+          {options.map((option, index) => {
+            return (
+              <MenuItem onClick={handleClose} key={index}>
+                {option}
+              </MenuItem>
+            )
+          })}
+        </Menu>
+
+      </>
     )
     
   }
+
 
   return (
     <div>

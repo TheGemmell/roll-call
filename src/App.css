@@ -40,3 +40,13 @@
 #date {
   padding: 10px;
 }
+
+.button-text {
+  margin: -2px;
+}
+
+.student-button {
+  min-width: 40vw;
+  max-width: 80vw;
+  width: auto;
+}
