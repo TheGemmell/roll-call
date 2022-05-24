@@ -10,9 +10,8 @@ export class Student {
         this.lastName = lastName;
     }
 
-
-    finalize(date: string) {
-        return `${this.studentId},${this.firstName},${this.lastName},${date},${this.status},\r`;
+    finalString(date: string) {
+        return `${this.studentId},${this.firstName},${this.lastName},${date},${this.status},`;
     }
 
 }
@@ -37,8 +36,13 @@ export class Roll {
     }
 
     listStudents() {
-        let strings = this.students.map(student => student.finalize(this.date))
-        console.log(strings)
-        return strings
+        let studentArr = this.students.map(student => student.finalString(this.date))
+        console.log(studentArr)
+        let csvStrings = studentArr.join('\n')
+        console.log(csvStrings)
+        let headings = `Learner ID,First Name,Last Name,Date [YYYY-MM-DD],Status,Notes\n`
+        return `${headings}${csvStrings}`
     }
+
+
 }
