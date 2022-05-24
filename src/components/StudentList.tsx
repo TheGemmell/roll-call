@@ -5,12 +5,11 @@ import { Roll, Student } from '../lib/Student'
 import StudentButton from "./StudentButton";
 
 export default function StudentGrid() {
-  const [ students, setStudents ] = useState<Student[]>([])
+  const [ students, setStudents ] = useState<Roll>([])
 
-  let roll = new Roll(new Date());
   path.appDir().then(data => console.log(data))
-
-  function studentsNeeded() {
+  
+  function studentsNeeded(roll: Roll) {
     fs.readTextFile(`C:/Users/Chris/Development/roll-call/src/components/students.csv`).then((csv) => {
       let data = csv.split("\n")
       data.forEach(student => {
@@ -18,27 +17,30 @@ export default function StudentGrid() {
       })
       console.log(data)
       roll.listStudents()
-      setStudents(roll.students)
+      setStudents(roll)
     })
   }
-
+  
   useEffect(() => {
-      studentsNeeded()
+    let roll = new Roll(new Date());
+    studentsNeeded(roll)
   }, [])
 
   console.log(students)
 
   const handleClick = () => {
     console.log(students)
+    console.log(students.listStudents())
+    
   }
 
-  if (students) {
+  if (students.students) {
     return (
       <div>
         <h1>Students</h1>
         <Button onClick={handleClick}>Click</Button>
-        {students.length}
-        {students.map((student, index) => <StudentButton key={index} student={student}/>)}
+        {students.students.length}
+        {students.students.map((student, index) => <StudentButton key={index} student={student}/>)}
       </div>
     );
 
