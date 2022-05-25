@@ -37,12 +37,9 @@ export class Roll {
 
     listStudents() {
         let studentArr = this.students.map(student => student.finalString(this.date))
-        console.log(studentArr)
         let csvStrings = studentArr.join('\n')
-        console.log(csvStrings)
         let headings = `Learner ID,First Name,Last Name,Date [YYYY-MM-DD],Status,Notes\n`
         return `${headings}${csvStrings}`
     }
-
 
 }
