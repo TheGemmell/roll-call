@@ -8,7 +8,13 @@ type stateAct = React.Dispatch<React.SetStateAction<string | undefined>> | React
 export default function InitSettings({date, setDate, setFile}: {date: string, setDate: stateAct, setFile: stateAct}) {
   
   const handleUpload = async () => {
-    const filePath = await dialog.open()
+    const filePath = await dialog.open({
+      title: "Please Select a CSV File",
+      filters: [{
+        name: "Comma-Seperated Values",
+        extensions: ['csv']
+      }]
+    })
     .then(data => {
       return data
     })
