@@ -4,32 +4,32 @@ import { useState, useEffect, Key } from 'react'
 import { Roll, Student } from '../lib/Student'
 import StudentButton from "./StudentButton";
 
-export default function StudentGrid() {
+export default function StudentGrid({file, date}:{file: string, date: string}) {
   const [ studs, setStudents ] = useState<Roll | any>([])
 
   path.appDir().then(data => console.log(data))
   
   function studentsNeeded(roll: Roll) {
-    fs.readTextFile(`C:/Users/Chris/Development/roll-call/src/components/students.csv`).then((csv) => {
+    fs.readTextFile(file).then((csv) => {
       let data = csv.split("\n")
       data.forEach(student => {
         roll.newStudent(student)
       })
       console.log(data)
-      roll.listStudents()
+      roll.listStudents(date)
       setStudents(roll)
     })
   }
   
   useEffect(() => {
-    let roll = new Roll(new Date());
+    let roll = new Roll();
     studentsNeeded(roll)
-  }, [])
+  }, [file])
 
   console.log(studs)
 
-  const handleClick = () => {
-    let stringToWrite = studs.listStudents()
+  const handleExport = () => {
+    let stringToWrite = studs.listStudents(date)
     console.log('stringToWrite', stringToWrite)
     fs.writeFile({
       path: 'C:/Users/Chris/Development/roll-call/src/components/newStudents.csv',
@@ -41,8 +41,10 @@ export default function StudentGrid() {
     return (
       <div>
         <h1>Students</h1>
-        <Button onClick={handleClick}>Click</Button>
-        {studs.students.length}
+        <Button onClick={handleExport}>Export</Button>
+        <p>
+          {studs.students.length}
+        </p>
         {studs.students.map((student: Student, index: Key | null | undefined) => <StudentButton key={index} stud={student}/>)}
       </div>
     );
