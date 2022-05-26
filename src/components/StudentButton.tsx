@@ -77,15 +77,18 @@ export default function StudentButton({ stud }: { stud: Student }) {
     
     return (
       <>
-        <Tooltip open={open} onClose={handleToolClose} onOpen={handleOpen} title={stud.status ? stud.status : ""}>
-        <Button className="student-button" color={color} variant={variant} onClick={handleClick} onContextMenu={handleContextMenu}>
-          <p className="button-text">{`${student.firstName} ${student.lastName}`}</p>
-        </Button>
+        <Tooltip 
+        open={open} onClose={handleToolClose} onOpen={handleOpen}
+        arrow={true} placement="right"
+        enterDelay={700}
+        title={stud.status ? stud.status : ""}
+        >
+          <Button className="student-button" color={color} variant={variant} onClick={handleClick} onContextMenu={handleContextMenu}>
+            <p className="button-text">{`${student.firstName} ${student.lastName}`}</p>
+          </Button>
         </Tooltip>
         <Menu
-        open={contextMenu !== null}
-        onClose={handleClose}
-        anchorReference="anchorPosition"
+        open={contextMenu !== null} onClose={handleClose} anchorReference="anchorPosition"
         anchorPosition={
           contextMenu !== null
             ? { top: contextMenu.mouseY, left: contextMenu.mouseX }
@@ -99,7 +102,6 @@ export default function StudentButton({ stud }: { stud: Student }) {
             )
           })}
         </Menu>
-
       </>
     )
     
