@@ -3,6 +3,7 @@ import { Student } from "../lib/Student";
 import { MouseEvent, useState } from 'react'
 
 export default function StudentButton({ stud }: { stud: Student }) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [curStudent, setStudent] = useState<Student>()
   const [contextMenu, setContextMenu] = useState<{mouseX: number, mouseY: number} | null>(null);
   const [open, setOpen] = useState(false);

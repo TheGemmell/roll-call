@@ -22,6 +22,7 @@ export default function StudentGrid({file, date}:{file: string, date: string}) {
   useEffect(() => {
     let roll = new Roll();
     studentsNeeded(roll)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file])
 
   const handleExport = async () => {

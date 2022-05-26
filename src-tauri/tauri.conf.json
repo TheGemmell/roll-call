@@ -7,7 +7,7 @@
     "distDir": "../build"
   },
   "package": {
-    "productName": "roll-call",
+    "productName": "Roll Call",
     "version": "0.1.0"
   },
   "tauri": {
@@ -20,7 +20,7 @@
     },
     "bundle": {
       "active": true,
-      "category": "DeveloperTool",
+      "category": "Utility",
       "copyright": "",
       "deb": {
         "depends": []
@@ -63,7 +63,8 @@
         "height": 720,
         "resizable": true,
         "title": "Generation - Roll Call",
-        "width": 1120
+        "width": 1120,
+        "label": "Roll Call - Main"
       }
     ]
   }
