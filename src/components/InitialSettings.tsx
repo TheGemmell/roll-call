@@ -22,6 +22,7 @@ export default function InitSettings({date, setDate, setFile}: {date: string, se
       console.log(err)
     })
     console.log(filePath)
+    setFile(filePath as string)
 
   }
   
@@ -31,7 +32,8 @@ export default function InitSettings({date, setDate, setFile}: {date: string, se
         id="date"
         label="Day"
         type="date"
-        defaultValue={date}
+        value={date}
+        onChange={(e) => setDate(e.target.value)}
         sx={{ width: 220 }}
         InputLabelProps={{
           shrink: true,

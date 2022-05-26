@@ -11,8 +11,8 @@ function App() {
 
   return (
     <div className="App">
-        <InitialSettings date={date} setDate={setDate} setFile={setFile}/>
-      {/* <StudentList /> */}
+      <InitialSettings date={date} setDate={setDate} setFile={setFile}/>
+      {file ? <StudentList date={date} file={file} /> : null }
     </div>
   );
 }
