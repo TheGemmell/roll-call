@@ -40,7 +40,7 @@ export default function InitSettings({date, setDate, setFile}: {date: string, se
         }}
       />
       <Button onClick={handleUpload} variant="contained" startIcon={<UploadIcon fontSize="small" />}>
-        Upload
+        Import
       </Button>
     </Stack>
   );
