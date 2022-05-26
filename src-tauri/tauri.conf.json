@@ -64,7 +64,7 @@
         "resizable": true,
         "title": "Generation - Roll Call",
         "width": 1120,
-        "label": "Roll Call - Main"
+        "label": "main"
       }
     ]
   }
