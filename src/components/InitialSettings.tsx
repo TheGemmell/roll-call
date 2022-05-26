@@ -34,7 +34,7 @@ export default function InitSettings({date, setDate, setFile}: {date: string, se
         type="date"
         value={date}
         onChange={(e) => setDate(e.target.value)}
-        sx={{ width: 220 }}
+        sx={{ width: 180 }}
         InputLabelProps={{
           shrink: true,
         }}
