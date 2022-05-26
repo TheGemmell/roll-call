@@ -16,14 +16,12 @@ export class Student {
 
 }
 
-
 export class Roll {
-    date: string
+    date: string | undefined
     students: Array<Student>
 
-    constructor(date: Date) {
+    constructor() {
         this.students = [];
-        this.date = date.toISOString().split('T')[0]
     }
 
     newStudent(csvString: string) {
@@ -35,11 +33,17 @@ export class Roll {
         this.students.push(s)
     }
 
-    listStudents() {
-        let studentArr = this.students.map(student => student.finalString(this.date))
+    listStudents(date: string) {
+        console.log('Student.ts Date:', date)
+        this.date = date
+        let studentArr = this.students.map(student => student.finalString(this.date as string))
         let csvStrings = studentArr.join('\n')
         let headings = `Learner ID,First Name,Last Name,Date [YYYY-MM-DD],Status,Notes\n`
         return `${headings}${csvStrings}`
     }
 
+    allPresent() {
+        this.students.forEach((stud => stud.status = "Present"))
+        console.log(this.students)
+    }
 }
