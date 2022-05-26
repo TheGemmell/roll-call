@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { fs, path } from "@tauri-apps/api";
+import { fs, path, dialog } from "@tauri-apps/api";
 import { useState, useEffect, Key } from 'react'
 import { Roll, Student } from '../lib/Student'
 import StudentButton from "./StudentButton";
@@ -15,8 +15,6 @@ export default function StudentGrid({file, date}:{file: string, date: string}) {
       data.forEach(student => {
         roll.newStudent(student)
       })
-      console.log(data)
-      roll.listStudents(date)
       setStudents(roll)
     })
   }
@@ -26,15 +24,27 @@ export default function StudentGrid({file, date}:{file: string, date: string}) {
     studentsNeeded(roll)
   }, [file])
 
-  console.log(studs)
-
-  const handleExport = () => {
+  const handleExport = async () => {
     let stringToWrite = studs.listStudents(date)
     console.log('stringToWrite', stringToWrite)
-    fs.writeFile({
-      path: 'C:/Users/Chris/Development/roll-call/src/components/newStudents.csv',
-      contents: stringToWrite
-    },{})
+    const filePath = await dialog.save({
+      title: "Please Select A Location To Save",
+      filters: [{
+        name: "Comma-Seperated Values",
+        extensions: ['csv']
+      }]
+    })
+    .then(data => {
+      fs.writeFile({
+        path: data,
+        contents: stringToWrite
+      })
+      return data
+    })
+    .catch(err => {
+      console.log(err)
+    })
+    console.log('Successfully saved to: ', filePath)
   }
 
   if (studs.students) {
