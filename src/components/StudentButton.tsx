@@ -90,11 +90,8 @@ export default function StudentButton({ stud }: { stud: Student }) {
         </Tooltip>
         <Menu
         open={contextMenu !== null} onClose={handleClose} anchorReference="anchorPosition"
-        anchorPosition={
-          contextMenu !== null
-            ? { top: contextMenu.mouseY, left: contextMenu.mouseX }
-            : undefined
-        }>
+        anchorPosition={ contextMenu !== null ? { top: contextMenu.mouseY, left: contextMenu.mouseX } : undefined }
+        >
           {options.map((option, index) => {
             return (
               <MenuItem onClick={handleClose} key={index}>
