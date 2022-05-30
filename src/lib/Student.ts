@@ -34,7 +34,6 @@ export class Roll {
     }
 
     listStudents(date: string) {
-        console.log('Student.ts Date:', date)
         this.date = date
         let studentArr = this.students.map(student => student.finalString(this.date as string))
         let csvStrings = studentArr.join('\n')
@@ -44,6 +43,6 @@ export class Roll {
 
     allPresent() {
         this.students.forEach((stud => stud.status = "Present"))
-        console.log(this.students)
+        console.log('All Marked Present: ', this.students)
     }
 }

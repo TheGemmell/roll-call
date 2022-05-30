@@ -1,14 +1,12 @@
 import { Button } from "@mui/material";
-import { fs, path, dialog } from "@tauri-apps/api";
+import { fs, dialog } from "@tauri-apps/api";
 import { useState, useEffect, Key } from 'react'
 import { Roll, Student } from '../lib/Student'
 import StudentButton from "./StudentButton";
 
 export default function StudentGrid({file, date}:{file: string, date: string}) {
-  const [ studs, setStudents ] = useState<Roll | any>([])
+  const [ studs, setStudents ] = useState<Roll | undefined>()
 
-  path.appDir().then(data => console.log(data))
-  
   function studentsNeeded(roll: Roll) {
     fs.readTextFile(file).then((csv) => {
       let data = csv.split("\n")
@@ -26,7 +24,7 @@ export default function StudentGrid({file, date}:{file: string, date: string}) {
   }, [file])
 
   const handleExport = async () => {
-    let stringToWrite = studs.listStudents(date)
+    let stringToWrite = studs!.listStudents(date)
     console.log('stringToWrite', stringToWrite)
     const filePath = await dialog.save({
       title: "Please Select A Location To Save",
@@ -48,15 +46,20 @@ export default function StudentGrid({file, date}:{file: string, date: string}) {
     console.log('Successfully saved to: ', filePath)
   }
 
-  if (studs.students) {
+  const allPresentPress = () => {
+    studs?.allPresent()
+    setStudents(studs)
+  }
+
+  if (studs) {
+    console.log(studs)
     return (
       <div>
         <h1>Students</h1>
+        <p>{studs!.students.length}</p>
+        <Button onClick={allPresentPress}>All Present</Button>
         <Button onClick={handleExport}>Export</Button>
-        <p>
-          {studs.students.length}
-        </p>
-        {studs.students.map((student: Student, index: Key | null | undefined) => <StudentButton key={index} stud={student}/>)}
+        {studs!.students.map((student: Student, index: Key | null | undefined) => <StudentButton key={index} stud={student}/>)}
       </div>
     );
 
