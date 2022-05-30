@@ -11,7 +11,9 @@ export default function StudentGrid({file, date}:{file: string, date: string}) {
     fs.readTextFile(file).then((csv) => {
       let data = csv.split("\n")
       data.forEach(student => {
-        roll.newStudent(student)
+        if (student.startsWith('a1g')) {
+          roll.newStudent(student)
+        }
       })
       setStudents(roll)
     })

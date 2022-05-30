@@ -27,8 +27,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: app-v${{ env.PACKAGE_VERSION }}
-          release_name: 'AC Companion v${{ env.PACKAGE_VERSION }}'
+          tag_name: roll-call.v${{ env.PACKAGE_VERSION }}
+          release_name: 'Roll Call v${{ env.PACKAGE_VERSION }}'
           body: 'See the assets to download this version and install.'
           draft: true
           prerelease: false
@@ -64,7 +64,5 @@ jobs:
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
-          # TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
         with:
           releaseId: ${{ needs.create-release.outputs.RELEASE_UPLOAD_ID }}
