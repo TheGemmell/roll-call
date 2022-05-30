@@ -1,7 +1,11 @@
 {
-  "name": "roll-call",
+  "name": "@ghostday/roll-call",
   "version": "0.1.0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ghostday/roll-call.git"
+  },
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
