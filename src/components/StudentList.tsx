@@ -45,7 +45,8 @@ export default function StudentGrid({file, date}:{file: string, date: string}) {
       filters: [{
         name: "Comma-Seperated Values",
         extensions: ['csv']
-      }]
+      }],
+      defaultPath: `${date}.csv`
     })
     .then(data => {
       fs.writeFile({
@@ -65,7 +66,6 @@ export default function StudentGrid({file, date}:{file: string, date: string}) {
     console.log(studs)
     return (
       <div>
-        <h1>Students</h1>
         <p>{studs!.students.length}</p>
         <Button onClick={allPresentPress}>All Present</Button>
         <Button onClick={handleExport}>Export</Button>
