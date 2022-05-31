@@ -42,10 +42,6 @@ export class Roll {
     }
 
     allPresent() {
-        const nowPresentArr = this.students.map((student) => {
-            student.status = "Present"
-            return student
-        })
-        return nowPresentArr
+        this.students.forEach(student => student.status = 'Present')
     }
 }

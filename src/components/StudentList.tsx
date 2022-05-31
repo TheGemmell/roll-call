@@ -52,12 +52,12 @@ export default function StudentGrid({file, date}:{file: string, date: string}) {
         path: data,
         contents: stringToWrite
       })
+      console.log('Successfully saved to: ', filePath)
       return data
     })
     .catch(err => {
       console.log(err)
     })
-    console.log('Successfully saved to: ', filePath)
   }
 
 
