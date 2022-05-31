@@ -4,8 +4,15 @@ import { useState, useEffect, Key } from 'react'
 import { Roll, Student } from '../lib/Student'
 import StudentButton from "./StudentButton";
 
+function forceUpdate() {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [ value, setValue ] = useState(true);
+  return () => setValue(!value)
+}
+
 export default function StudentGrid({file, date}:{file: string, date: string}) {
   const [ studs, setStudents ] = useState<Roll | undefined>()
+  let force = forceUpdate()
 
   function studentsNeeded(roll: Roll) {
     fs.readTextFile(file).then((csv) => {
@@ -17,6 +24,11 @@ export default function StudentGrid({file, date}:{file: string, date: string}) {
       })
       setStudents(roll)
     })
+  }
+  
+  const allPresentPress = () => {
+    studs!.allPresent()
+    force()
   }
   
   useEffect(() => {
@@ -48,12 +60,8 @@ export default function StudentGrid({file, date}:{file: string, date: string}) {
     console.log('Successfully saved to: ', filePath)
   }
 
-  const allPresentPress = () => {
-    studs?.allPresent()
-    setStudents(studs)
-  }
 
-  if (studs) {
+  if (studs?.students) {
     console.log(studs)
     return (
       <div>
