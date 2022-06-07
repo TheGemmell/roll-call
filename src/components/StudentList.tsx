@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { fs, dialog } from "@tauri-apps/api";
+import { fs, dialog, shell, path } from "@tauri-apps/api";
 import { useState, useEffect, Key } from 'react'
 import { Roll, Student } from '../lib/Student'
 import StudentButton from "./StudentButton";
@@ -53,12 +53,22 @@ export default function StudentGrid({file, date}:{file: string, date: string}) {
         path: data,
         contents: stringToWrite
       })
-      console.log('Successfully saved to: ', filePath)
+      return data
+    })
+    .then(data => {
+      console.log(data)
       return data
     })
     .catch(err => {
       console.log(err)
     })
+    
+    if (filePath) {
+      // Grabbing the path to the file saved to then open File Explorer/Finder to for ease-of-use
+      path.dirname(filePath).then(data => {
+        shell.open(data)
+      })
+    }
   }
 
 
