@@ -8,14 +8,25 @@
   },
   "package": {
     "productName": "Roll Call",
-    "version": "1.0.0"
+    "version": "1.0.1"
   },
   "tauri": {
     "allowlist": {
-      "all": true,
+      "all": false,
       "fs": {
-        "all": true,
+        "readFile": true,
+        "writeFile": true,
         "scope": ["*"]
+      },
+      "dialog": {
+        "open": true,
+        "save": true
+      },
+      "shell": {
+        "open": true
+      },
+      "path": {
+        "all": true
       }
     },
     "bundle": {
@@ -33,7 +44,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "tauri.dev.roll-call",
+      "identifier": "tauri.Gemmell.roll-call",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
