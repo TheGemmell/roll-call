@@ -1,14 +1,14 @@
 import { Button, Menu, MenuItem, Tooltip } from "@mui/material";
 import { Student } from "../lib/Student";
-import { MouseEvent, useState } from 'react'
+import { Key, MouseEvent, useState } from 'react'
 
-export default function StudentButton({ stud }: { stud: Student }) {
+export default function StudentButton({ stud, listId, delStud }: { stud: Student, listId: Key, delStud: Function }) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [curStudent, setStudent] = useState<Student>()
   const [contextMenu, setContextMenu] = useState<{mouseX: number, mouseY: number} | null>(null);
   const [open, setOpen] = useState(false);
 
-  const options = ["Present", "Absent", "Absent - Excused", "Late", "Late - Excused", "Holiday"]
+  const options = ["Present", "Absent", "Absent - Excused", "Late", "Late - Excused", "Holiday"];
 
   const handleClick = (e: MouseEvent<HTMLElement>) => {
     console.log(e.currentTarget.innerText)
@@ -27,7 +27,12 @@ export default function StudentButton({ stud }: { stud: Student }) {
         : // Obscure code to help some broswers not fuck-up
           null,
     );
+  }
 
+  const handleDoubleClick = (e: MouseEvent<HTMLElement>) => {
+    console.log(`delete no. ${listId}`);
+    setContextMenu(null);
+    delStud(listId);
   }
 
   const handleClose = (e: MouseEvent<HTMLElement>) => {
@@ -41,7 +46,7 @@ export default function StudentButton({ stud }: { stud: Student }) {
 
   function buttonStyle(student: Student) {
     let color: "primary" | "secondary" | "success" | "warning" | "error" | "info"
-    let variant: "contained" | "outlined" | "text" 
+    let variant: "contained" | "outlined" | "text"
     switch (student.status) {
       case options[0]:
         color = "success"
@@ -71,14 +76,14 @@ export default function StudentButton({ stud }: { stud: Student }) {
     const handleToolClose = () => {
       setOpen(false);
     };
-  
+
     const handleOpen = () => {
       setOpen(true);
     };
-    
+
     return (
       <>
-        <Tooltip 
+        <Tooltip
         open={open} onClose={handleToolClose} onOpen={handleOpen}
         arrow={true} placement="right"
         enterDelay={700}
@@ -99,10 +104,13 @@ export default function StudentButton({ stud }: { stud: Student }) {
               </MenuItem>
             )
           })}
+          <MenuItem onDoubleClick={handleDoubleClick}>
+          DELETE
+          </MenuItem>
         </Menu>
       </>
     )
-    
+
   }
 
 

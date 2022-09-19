@@ -14,6 +14,12 @@ export default function StudentGrid({file, date}:{file: string, date: string}) {
   const [ studs, setStudents ] = useState<Roll | undefined>()
   let force = forceUpdate()
 
+  useEffect(() => {
+    let roll = new Roll();
+    studentsNeeded(roll)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [file])
+
   function studentsNeeded(roll: Roll) {
     fs.readTextFile(file).then((csv) => {
       let data = csv.split("\n")
@@ -25,17 +31,16 @@ export default function StudentGrid({file, date}:{file: string, date: string}) {
       setStudents(roll)
     })
   }
-  
-  const allPresentPress = () => {
-    studs!.allPresent()
-    force()
+
+  const deleteStudent = (index: Key) => {
+    studs!.deleteStudent(index as number);
+    force();
   }
-  
-  useEffect(() => {
-    let roll = new Roll();
-    studentsNeeded(roll)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [file])
+
+  const allPresentPress = () => {
+    studs!.allPresent();
+    force();
+  }
 
   const handleExport = async () => {
     let stringToWrite = studs!.listStudents(date)
@@ -62,7 +67,7 @@ export default function StudentGrid({file, date}:{file: string, date: string}) {
     .catch(err => {
       console.log(err)
     })
-    
+
     if (filePath) {
       // Grabbing the path to the file saved to then open File Explorer/Finder to for ease-of-use
       path.dirname(filePath).then(data => {
@@ -79,7 +84,7 @@ export default function StudentGrid({file, date}:{file: string, date: string}) {
         <p>{studs!.students.length}</p>
         <Button onClick={allPresentPress}>All Present</Button>
         <Button onClick={handleExport}>Export</Button>
-        {studs!.students.map((student: Student, index: Key | null | undefined) => <StudentButton key={index} stud={student}/>)}
+        {studs!.students.map((student: Student, index: Key) => <StudentButton key={index} listId={index} stud={student} delStud={deleteStudent}/>)}
       </div>
     );
 
