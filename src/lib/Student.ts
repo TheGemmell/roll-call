@@ -3,7 +3,7 @@ export class Student {
     firstName: string;
     lastName: string;
     status: string | undefined;
-    
+
     constructor(studentId: string, firstName: string, lastName: string) {
         this.studentId = studentId
         this.firstName = firstName;
@@ -43,5 +43,9 @@ export class Roll {
 
     allPresent() {
         this.students.forEach(student => student.status = 'Present')
+    }
+
+    deleteStudent(index: number) {
+        this.students.splice(index, 1)
     }
 }
